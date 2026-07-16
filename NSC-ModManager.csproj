@@ -1,8 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
     <RootNamespace>NSC_ModManager</RootNamespace>
     <AssemblyName>NSC_ModManager</AssemblyName>
     <Nullable>enable</Nullable>
@@ -22,10 +23,10 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     
-    <AssemblyVersion>2.0.1.1</AssemblyVersion>
-    <FileVersion>2.0.1.1</FileVersion>
+    <AssemblyVersion>2.1.0.0</AssemblyVersion>
+    <FileVersion>2.1.0.0</FileVersion>
     <Authors>TheLeonX</Authors>
-    <Version>1.60</Version>
+    <Version>2.1.0</Version>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <SignAssembly>False</SignAssembly>
     <SupportedOSPlatformVersion>10.0.26100.0</SupportedOSPlatformVersion>
@@ -161,7 +162,12 @@
 
   <ItemGroup>
     <Folder Include="ModdingAPIFiles\" />
+    <Folder Include="Core\" />
+    <Folder Include="Core\GameDetection\" />
+    <Folder Include="Core\ModCompilation\" />
+    <Folder Include="Core\FileFormats\" />
   </ItemGroup>
+
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
@@ -174,18 +180,22 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+
   <ItemGroup>
     <Reference Include="CpkMaker, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>CpkMaker.dll</HintPath>
     </Reference>
   </ItemGroup>
+
   <ItemGroup>
     <Content Include="CpkMaker.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\XFBIN_LIB\XFBIN_LIB.csproj" />
   </ItemGroup>
+
 </Project>
