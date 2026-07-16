@@ -1,0 +1,138 @@
+<UserControl x:Class="NSC_ModManager.View.CompilationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1000">
+    <Grid Background="#F5F5F5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- LEFT PANEL: Mod List -->
+        <StackPanel Grid.Column="0" Margin="10">
+            <TextBlock Text="MOD MANAGER" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+            
+            <!-- Mod List -->
+            <ListBox ItemsSource="{Binding AvailableMods}" Height="400" Background="White" BorderThickness="1" BorderBrush="#DDD">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <CheckBox IsChecked="{Binding IsEnabled}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Author}" FontSize="11" Foreground="Gray"/>
+                                <TextBlock Text="{Binding Version}" FontSize="10" Foreground="LightGray"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <!-- Mod Controls -->
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Button Content="➕ Add Mod" Command="{Binding AddModCommand}" 
+                        Padding="8" Margin="0,0,5,0" Background="#4CAF50" Foreground="White"/>
+                <Button Content="❌ Remove" Command="{Binding RemoveModCommand}" 
+                        Padding="8" Background="#F44336" Foreground="White"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- RIGHT PANEL: Compilation -->
+        <StackPanel Grid.Column="1" Margin="10">
+            <!-- Header -->
+            <TextBlock Text="COMPILATION ENGINE - 6 PHASE PIPELINE" FontSize="16" FontWeight="Bold" Margin="0,0,0,15"/>
+
+            <!-- Phase Progress -->
+            <Border Background="White" BorderThickness="1" BorderBrush="#DDD" Padding="15" Margin="0,0,0,15">
+                <StackPanel>
+                    <TextBlock Text="Current Phase:" FontWeight="Bold" Margin="0,0,0,5"/>
+                    <TextBlock Text="{Binding PhaseStatus}" FontSize="14" Foreground="#2196F3" Margin="0,0,0,10"/>
+                    
+                    <!-- Progress Bar -->
+                    <ProgressBar Value="{Binding PhaseProgress}" Height="8" Background="#E0E0E0" Foreground="#4CAF50"/>
+                    <TextBlock Text="{Binding PhaseProgress, StringFormat='{0}%'}" TextAlignment="Right" FontSize="10" Foreground="Gray" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Phase Indicators -->
+            <Grid Margin="0,0,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="#E8F5E9" BorderThickness="1" BorderBrush="#4CAF50" Padding="10" Margin="0,0,5,0">
+                    <StackPanel>
+                        <TextBlock Text="1️⃣" FontSize="18" TextAlignment="Center"/>
+                        <TextBlock Text="Pre-flight" FontSize="10" TextAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1" Background="#F3E5F5" BorderThickness="1" BorderBrush="#9C27B0" Padding="10" Margin="5,0,5,0">
+                    <StackPanel>
+                        <TextBlock Text="2️⃣" FontSize="18" TextAlignment="Center"/>
+                        <TextBlock Text="Clean" FontSize="10" TextAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2" Background="#E3F2FD" BorderThickness="1" BorderBrush="#2196F3" Padding="10" Margin="5,0,5,0">
+                    <StackPanel>
+                        <TextBlock Text="3️⃣" FontSize="18" TextAlignment="Center"/>
+                        <TextBlock Text="Merge" FontSize="10" TextAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="3" Background="#FFF3E0" BorderThickness="1" BorderBrush="#FF9800" Padding="10" Margin="5,0,5,0">
+                    <StackPanel>
+                        <TextBlock Text="4️⃣" FontSize="18" TextAlignment="Center"/>
+                        <TextBlock Text="CPK" FontSize="10" TextAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="4" Background="#FCE4EC" BorderThickness="1" BorderBrush="#E91E63" Padding="10" Margin="5,0,5,0">
+                    <StackPanel>
+                        <TextBlock Text="5️⃣" FontSize="18" TextAlignment="Center"/>
+                        <TextBlock Text="Deploy" FontSize="10" TextAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="5" Background="#F1F8E9" BorderThickness="1" BorderBrush="#8BC34A" Padding="10" Margin="5,0,0,0">
+                    <StackPanel>
+                        <TextBlock Text="6️⃣" FontSize="18" TextAlignment="Center"/>
+                        <TextBlock Text="Launch" FontSize="10" TextAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Compilation Log -->
+            <TextBlock Text="Compilation Log:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <ListBox ItemsSource="{Binding CompilationLog}" Height="250" Background="White" BorderThickness="1" BorderBrush="#DDD">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontFamily="Consolas" FontSize="10" TextWrapping="Wrap"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <!-- Action Buttons -->
+            <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                <Button Content="▶️ Compile &amp; Launch" Command="{Binding CompileAndLaunchCommand}" 
+                        IsEnabled="{Binding IsCompiling, Converter={StaticResource InverseBooleanConverter}}"
+                        Padding="15,10" FontSize="14" FontWeight="Bold" 
+                        Background="#4CAF50" Foreground="White" Margin="0,0,10,0"/>
+                
+                <Button Content="🧹 Clear Game" Command="{Binding ClearGameCommand}" 
+                        IsEnabled="{Binding IsCompiling, Converter={StaticResource InverseBooleanConverter}}"
+                        Padding="15,10" FontSize="12" 
+                        Background="#F44336" Foreground="White"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
